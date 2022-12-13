@@ -4,6 +4,7 @@ const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
+const spanLives = document.querySelector('#lives');
 
 let canvasSize;
 let elementsSize;
@@ -14,10 +15,12 @@ const playerPosition = {
   x: undefined,
   y: undefined,
 };
+
 const giftPosition = {
   x: undefined,
   y: undefined,
 };
+
 let enemyPositions = [];
 
 window.addEventListener('load', setCanvasSize);
@@ -53,7 +56,10 @@ function startGame() {
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log({map, mapRows, mapRowCols});
   
+  showLives();
+
   enemyPositions = [];
+
   game.clearRect(0,0,canvasSize, canvasSize);
 
   mapRowCols.forEach((row, rowI) => {
@@ -95,7 +101,7 @@ function movePlayer() {
   }
 
   const enemyColision = enemyPositions.some(enemy => {
-    return (playerPosition.x == enemy.x) && (playerPosition.y == enemy.y)
+    return (playerPosition.x.toFixed(3) == enemy.x.toFixed(3)) && (playerPosition.y.toFixed(3) == enemy.y.toFixed(3))
   })
   
   if (enemyColision) {
@@ -112,7 +118,6 @@ function levelWin() {
 }
 
 function levelFail() {
-  console.log('Chocaste contra un enemigo :(');
   lives--;
 
   console.log(lives);
@@ -131,6 +136,14 @@ function gameWin() {
   console.log('¡Terminaste el juego!');
 }
 
+function showLives() {
+  const heartsArrays = Array(lives).fill(emojis['HEART']);
+  console.log(heartsArrays);
+
+  spanLives.innerHTML = "";
+  heartsArrays.forEach(heart => spanLives.append(heart));
+}
+
 window.addEventListener('keydown', moveByKeys);
 btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
@@ -145,8 +158,6 @@ function moveByKeys(event) {
 }
 
 function moveUp() {
-  console.log('Me quiero mover hacia arriba');
-
   if ((playerPosition.y - elementsSize) < 0) {
     console.log('OUT');
   } else {
@@ -156,8 +167,6 @@ function moveUp() {
 }
 
 function moveLeft() {
-  console.log('Me quiero mover hacia izquierda');
-
   if ((playerPosition.x - elementsSize) < elementsSize) {
     console.log('OUT');
   } else {
@@ -167,8 +176,6 @@ function moveLeft() {
 }
 
 function moveRight() {
-  console.log('Me quiero mover hacia derecha');
-
   if ((playerPosition.x + elementsSize) > canvasSize) {
     console.log('OUT');
   } else {
@@ -178,8 +185,6 @@ function moveRight() {
 }
 
 function moveDown() {
-  console.log('Me quiero mover hacia abajo');
-  
   if ((playerPosition.y + elementsSize) > canvasSize) {
     console.log('OUT');
   } else {
@@ -187,17 +192,3 @@ function moveDown() {
     startGame();
   }
 }
-
-// for (let row = 1; row <= 10; row++) {
-//   for (let col = 1; col <= 10; col++) {
-//     game.fillText(emojis[mapRowsCols[row - 1][col - 1]], elementsSize * col, elementsSize * row);
-//   }
-// 
-
-// PROPIEDADES DE UN CANVAS 
-// game.fillRect(0, 100, 100, 100);
-// game.clearRect(50,50,50,50);
-// game.font = "25px Verdana"
-// game.fillStyle = "purple";
-// game.textAlign = "center";
-// game.fillText('Ruben', 100, 50);s
