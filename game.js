@@ -6,6 +6,9 @@ const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
 const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
+const spanRecord = document.querySelector('#record');
+const pResult = document.querySelector('#result');
+
 
 let canvasSize;
 let elementsSize;
@@ -60,6 +63,7 @@ function startGame() {
   if(!timeStart) {
     timeStart = Date.now();
     timeInterval = setInterval(showTime, 100);
+    showRecord();
   }
   
   const mapRows = map.trim().split('\n');
@@ -146,6 +150,23 @@ function levelFail() {
 function gameWin() {
   console.log('¡Terminaste el juego!');
   clearInterval(timeInterval);
+
+  const recordTime = localStorage.getItem('record_time');
+  const playerTime = formatTime(Date.now() - timeStart);
+
+  if (recordTime) {
+    if (recordTime >= playerTime) {
+      localStorage.setItem('record_time', playerTime);
+      pResult.innerHTML = 'SUPERASTE EL RECORD :)';
+    } else {
+      pResult.innerHTML = 'Lo siento, no superaste el record :(';
+    }
+  } else {
+    localStorage.setItem('record_time', playerTime);
+    pResult.innerHTML = 'Primera vez? Muy bien, pero ahora trata de superar tu tiempo :)';
+  }
+
+  console.log({recordTime, playerTime});
 }
 
 function showLives() {
@@ -158,6 +179,10 @@ function showLives() {
 
 function showTime() {
   spanTime.innerHTML = formatTime(Date.now() - timeStart);
+}
+
+function showRecord() {
+  spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
 function formatTime(ms) {
@@ -220,3 +245,10 @@ function moveDown() {
     startGame();
   }
 }
+
+
+// Con local storage tienes que guardar el record de los jugadores usando el metodo SET ITEM - GET ITEM 
+
+// Cada vez que juegen van a demorarse cierto tiempo y si ese tiempo ES MENOR a la variable RECORD que hayas guardado en local storage vamos a concluir que superaron el record guardando esa nueva variable en localstorage
+
+// Cuando termine el juego y se ejecute esa funcion gameWIN busquemos en el local storage esa variable record, verifiquemos que el tiempo es mayor o menor al tiempo en que nuestros jugadores hayan tardado en jugar, siendo el caso actualizar 
