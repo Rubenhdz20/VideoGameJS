@@ -29,6 +29,8 @@ const giftPosition = {
   y: undefined,
 };
 
+
+
 let enemyPositions = [];
 
 window.addEventListener('load', setCanvasSize);
@@ -39,11 +41,15 @@ function setCanvasSize() {
   ? canvasSize = window.innerWidth * 0.7
   : canvasSize = window.innerHeight * 0.7;
   
+  canvasSize = Number(canvasSize.toFixed(0));
+
   canvas.setAttribute('width', canvasSize);
   canvas.setAttribute('height', canvasSize);
   
   elementsSize = canvasSize / 10;
 
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
   startGame();
 }
 
@@ -176,7 +182,7 @@ function showLives() {
   spanLives.innerHTML = "";
   heartsArrays.forEach(heart => spanLives.append(heart));
 }
-
+ 
 function showTime() {
   spanTime.innerHTML = formatTime(Date.now() - timeStart);
 }
