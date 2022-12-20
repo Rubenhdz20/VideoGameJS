@@ -8,6 +8,8 @@ const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+const btnReload = document.querySelector("#reload");
+const btnDelRecord = document.querySelector("#delRecord");
 
 
 let canvasSize;
@@ -208,6 +210,8 @@ btnUp.addEventListener('click', moveUp);
 btnLeft.addEventListener('click', moveLeft);
 btnRight.addEventListener('click', moveRight);
 btnDown.addEventListener('click', moveDown);
+btnReload.addEventListener('click', reStart);
+btnDelRecord.addEventListener('click', deleteRecord);
 
 function moveByKeys(event) {
   if (event.key == 'ArrowUp') moveUp();
@@ -250,6 +254,16 @@ function moveDown() {
     playerPosition.y += elementsSize;
     startGame();
   }
+}
+
+function reStart(){
+  location.reload();
+}
+
+function deleteRecord(){
+  localStorage.removeItem("record");
+  record.innerHTML = "";
+  pResult.innerHTML = "";
 }
 
 
