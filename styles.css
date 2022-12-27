@@ -29,6 +29,11 @@ canvas {
   width: 100%;
 }
 
+.btn-reload {
+  margin-top: 15px;
+  height: 40px;
+}
+
 button {
   background-color: #05d0fd;
   border-radius: 8px;
