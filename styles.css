@@ -21,6 +21,11 @@ canvas {
   background-color: #feff9d;
 }
 
+.instructions {
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .btns {
   display: flex;
   justify-content: center;
@@ -40,7 +45,7 @@ button {
   border-color: #090e76;
   font-family: inherit;
   margin: 0;
-  padding: 18px 33px;
+  padding: 15px 27px;
   width: 100px;
 }
 

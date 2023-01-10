@@ -26,7 +26,6 @@ const playerDetails = {
             this.timeStart = Date.now()
             timeInterval = setInterval(showTime, 100)
         }
-
         showRecord()
     }
 }
@@ -145,15 +144,14 @@ function colision() {
     if (enemyColition && playerDetails.lives <= 0) {
         playerDetails.timeStart = undefined;
         pResult.innerHTML = "You Loose!";
-    }
-
+    } 
     return enemyColition;
 }
 
 function resetGame() {
     if (colision()) {
         playerDetails.lives--;
-
+        canvasMsg("chocaste");
         if (playerDetails.lives <= 0) {
             map.lvl = 0;
             playerDetails.lives = 3;
