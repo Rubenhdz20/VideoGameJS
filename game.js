@@ -12,8 +12,8 @@ const NewGame= document.getElementById("newGame");
 
 let canvasSize;
 let canvasElement;
-let timeInterval
-let time_playing
+let timeInterval;
+let time_playing;
 
 const playerDetails = {
     lives: 3,
@@ -138,7 +138,7 @@ function colision() {
     const enemyColition = map.bombPosition.find(a => {
         const coincideX = map.playerPosition.x.toFixed(3) === a.x.toFixed(3);
         const coincideY = map.playerPosition.y.toFixed(3) === a.y.toFixed(3);
-        return coincideY && coincideX
+        return coincideY && coincideX;
     })
 
     if (enemyColition && playerDetails.lives <= 0) {
@@ -151,7 +151,6 @@ function colision() {
 function resetGame() {
     if (colision()) {
         playerDetails.lives--;
-        canvasMsg("chocaste");
         if (playerDetails.lives <= 0) {
             map.lvl = 0;
             playerDetails.lives = 3;
@@ -163,6 +162,14 @@ function resetGame() {
         map.playerPosition.y = undefined;
         startGame();
     }
+}
+
+function canvasMsg(msj) {
+    game.fillStyle = 'purple';
+    game.fillRect(0, (canvasSize/2.5), canvasSize, 100);
+    game.fillStyle = 'yellow';
+    game.textAlign = 'center';
+    game.fillText(msj,(canvasSize/2),(canvasSize/2));
 }
 
 function winGame() {
